@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { FireauthService } from '../fireauth.service';
+
 
 @Component({
   selector: 'app-register',
@@ -9,13 +11,14 @@ import { NgForm } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: FireauthService) { }
 
   ngOnInit(): void {
   }
 
-  onSubmit( forma: NgForm) {
-    console.log( forma );
+  onSubmit( forma: any) {    
+    this.authService.registrarUsuario(forma.nombre, forma.email, forma.password);
+    
   }
 
 }
