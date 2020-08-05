@@ -50,9 +50,19 @@
             <div class="form-group">
               <button
                 class="btn btn-primary submit-btn btn-block"
+                *ngIf="!cargando"
                 [disabled]="formaLogin.invalid"
               >
                 Login
+              </button>
+
+              <button
+                class="btn btn-primary submit-btn btn-block"
+                *ngIf="cargando"
+                [disabled]="formaLogin.invalid"
+              >
+              <i class="fa fa-spinner fa-spin"></i>
+                Espere. Ingresando al sistema...
               </button>
             </div>
 
