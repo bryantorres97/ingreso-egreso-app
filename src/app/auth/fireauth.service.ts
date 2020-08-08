@@ -18,8 +18,8 @@ import { Subscription } from 'rxjs';
   providedIn: 'root',
 })
 export class FireauthService {
-
   private suscripcionUsuario: Subscription = new Subscription();
+  private usuario: User;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -57,17 +57,25 @@ export class FireauthService {
       });
   }
 
+  getUsuario() {
+    return { ...this.usuario };
+  }
+
   initAuthListener() {
     this.afAuth.authState.subscribe((fbUser) => {
-      if(fbUser) {
-        this.suscripcionUsuario = this.afDB.doc(`${fbUser.uid}/usuario`).valueChanges()
-        .subscribe( (userObj: any) => {
-          const usuario = new User( userObj );
-          this.store.dispatch( new SetUserAction(usuario)); 
-        })
+      if (fbUser) {
+        this.suscripcionUsuario = this.afDB
+          .doc(`${fbUser.uid}/usuario`)
+          .valueChanges()
+          .subscribe((userObj: any) => {
+            const usuario = new User(userObj);
+            this.store.dispatch(new SetUserAction(usuario));
+            this.usuario = usuario;
+          });
       } else {
+        this.usuario = null;
         this.suscripcionUsuario.unsubscribe();
-      };
+      }
     });
   }
 
@@ -80,16 +88,15 @@ export class FireauthService {
         this.router.navigate(['/dashboard']);
         this.store.dispatch(new DesactivarLoadingAction());
       })
-      .catch((error) =>
-        {
-          this.store.dispatch(new DesactivarLoadingAction());
-          Swal.fire({
+      .catch((error) => {
+        this.store.dispatch(new DesactivarLoadingAction());
+        Swal.fire({
           icon: 'error',
           title: 'Oops...',
           text: error.message,
           footer: 'Something went wrong!',
-        })}
-      );
+        });
+      });
   }
 
   cerrarSesion() {

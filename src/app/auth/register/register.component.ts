@@ -15,7 +15,7 @@ import { Subscription } from 'rxjs';
 export class RegisterComponent implements OnInit, OnDestroy {
 
   cargando: boolean;
-  suscripcion: Subscription;
+  suscripcion: Subscription = new Subscription();  
 
   constructor(private authService: FireauthService, private store: Store<AppState>) { }
 
