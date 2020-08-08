@@ -9,9 +9,6 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
-import { ChartsModule } from 'ng2-charts';
-
-
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
@@ -29,7 +26,7 @@ import { environment } from 'src/environments/environment';
 import { appReducers } from './app.reducer';
 import { OrdenIngresoEgresoPipe } from './ingreso-egreso/orden-ingreso-egreso.pipe';
 
-
+import { HighchartsChartModule } from 'highcharts-angular';
 
 
 @NgModule({
@@ -60,7 +57,7 @@ import { OrdenIngresoEgresoPipe } from './ingreso-egreso/orden-ingreso-egreso.pi
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    ChartsModule
+    HighchartsChartModule
   ],
   providers: [
     //FireAuthServcice

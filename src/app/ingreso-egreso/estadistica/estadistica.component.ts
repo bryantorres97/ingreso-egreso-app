@@ -4,9 +4,8 @@ import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducer';
 import { Subscription } from 'rxjs';
 import { IngresoEgreso } from '../ingreso-egreso.model';
+import * as Highcharts from 'highcharts';
 
-import { MultiDataSet, Label } from 'ng2-charts';
-import { ChartType } from 'chart.js';
 
 @Component({
   selector: 'app-estadistica',
@@ -20,14 +19,9 @@ export class EstadisticaComponent implements OnInit {
   numeroEgresos: number;
   suscripcion: Subscription = new Subscription();
   
- // Doughnut
- public doughnutChartLabels: Label[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
- public doughnutChartData: MultiDataSet = [
-   [350, 450, 100],
-   [50, 150, 120],
-   [250, 130, 70],
- ];
- public doughnutChartType: ChartType = 'doughnut';
+  Highcharts: typeof Highcharts = Highcharts;
+  chartOptions: Highcharts.Options = { };
+
 
   constructor(private store: Store<AppState>) {}
 
@@ -54,5 +48,20 @@ export class EstadisticaComponent implements OnInit {
         this.numeroEgresos++;
       }
     });
+
+    this.chartOptions = {
+      title : {
+        text: 'Gráfico de ingresos y egresos'   
+     },
+      series : [{
+        type: 'pie',
+        name: 'Cantidad $',
+        data: [
+           ['Ingresos', this.ingresos],
+           ['Egresos', this.egresos]      
+        
+        ]
+     }]
+    }
   }
 }

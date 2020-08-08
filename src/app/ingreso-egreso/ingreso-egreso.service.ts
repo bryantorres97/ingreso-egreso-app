@@ -5,7 +5,7 @@ import { IngresoEgreso } from '../ingreso-egreso/ingreso-egreso.model';
 import { FireauthService } from '../auth/fireauth.service';
 import { AppState } from '../app.reducer';
 import { filter, map } from 'rxjs/operators';
-import { SetItemsAction } from './ingreso-egreso.actions';
+import { SetItemsAction, UnsetItemsAction } from './ingreso-egreso.actions';
 import { Subscribable, Subscription } from 'rxjs';
 
 @Injectable({
@@ -70,5 +70,6 @@ export class IngresoEgresoService {
   cancelarSuscripciones() {
     this.ingresoEgresoItemsListener.unsubscribe();
     this.ingresoEgresoListerner.unsubscribe();
+    this.store.dispatch( new UnsetItemsAction());
   }
 }

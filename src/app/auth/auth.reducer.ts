@@ -20,6 +20,12 @@ export function authReducer(
       };
     }
 
+    case fromAuth.UNSET_USER: {
+      return {
+        user: null
+      }
+    }
+
     default: {
       return state;
     }

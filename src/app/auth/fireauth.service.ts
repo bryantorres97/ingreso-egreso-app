@@ -11,7 +11,7 @@ import {
   ActivarLoadingAction,
   DesactivarLoadingAction,
 } from '../shared/ui.actions';
-import { SetUserAction } from './auth.actions';
+import { SetUserAction, UnsetUserAction } from './auth.actions';
 import { Subscription } from 'rxjs';
 
 @Injectable({
@@ -102,7 +102,10 @@ export class FireauthService {
   cerrarSesion() {
     this.afAuth
       .signOut()
-      .then(() => this.router.navigate(['/login']))
+      .then(() => {
+        this.router.navigate(['/login']);
+        this.store.dispatch( new UnsetUserAction())
+      })
       .catch((error) =>
         Swal.fire({
           icon: 'error',
