@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { AppRoutingModule } from '../app.routing.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -12,7 +12,7 @@ import { AppRoutingModule } from '../app.routing.module';
     RegisterComponent
   ],
   imports: [
-    AppRoutingModule,
+    RouterModule,
     CommonModule,
     FormsModule,
     AngularFireAuthModule    
