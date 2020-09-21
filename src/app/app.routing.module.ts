@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuardService } from './auth/auth-guard.service';
 
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
@@ -13,6 +14,7 @@ const routes: Routes = [
       import('./ingreso-egreso/ingreso-egreso.module').then(
         (m) => m.IngresoEgresoModule
       ),
+      canLoad: [ AuthGuardService ]
   },
   { path: '**', redirectTo: '' },
 ];
